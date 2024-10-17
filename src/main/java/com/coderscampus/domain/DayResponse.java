@@ -1,13 +1,14 @@
-package com.coderscampus.model;
+package com.coderscampus.domain;
 
-public class WeekResponse {
+public class DayResponse {
     private String numCalories;
     private String diet;
     private String exclusions;
 
-    public WeekResponse() {
+    public DayResponse() {
 
     }
+
     public String getNumCalories() {
         return numCalories;
     }
@@ -34,10 +35,11 @@ public class WeekResponse {
 
     @Override
     public String toString() {
-        return "WeekResponse{" +
+        return "DayResponse{" +
                 "numCalories='" + numCalories + '\'' +
                 ", diet='" + diet + '\'' +
                 ", exclusions='" + exclusions + '\'' +
                 '}';
+
     }
 }

@@ -1,11 +1,11 @@
-package com.coderscampus.model;
+package com.coderscampus.domain;
 
-public class DayResponse {
+public class WeekResponse {
     private String numCalories;
     private String diet;
     private String exclusions;
 
-    public DayResponse() {
+    public WeekResponse() {
 
     }
 
@@ -40,6 +40,5 @@ public class DayResponse {
                 ", diet='" + diet + '\'' +
                 ", exclusions='" + exclusions + '\'' +
                 '}';
-
     }
 }
