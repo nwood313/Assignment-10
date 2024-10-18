@@ -9,10 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
-
-
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 @Service
 public class MealPlannerService {
@@ -25,10 +23,8 @@ public class MealPlannerService {
     @Value("${spoonacular.api.key}")
     private String apiKey;
 
-    private final RestTemplate restTemplate = new RestTemplate();
-    private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public ResponseEntity<WeekResponse> getWeeklyMeals(@RequestParam String numCalories, @RequestParam String diet, @RequestParam String exclusions) throws JsonProcessingException {
+    public WeekResponse getWeeklyMeals(String numCalories, String diet, String exclusions) {
         String apiUrl = spoonacularBaseUrl + spoonacularMealplanUrl;
         UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(apiUrl)
                 .queryParam("timeFrame", "week")
@@ -37,24 +33,14 @@ public class MealPlannerService {
                 .queryParam("exclude", exclusions)
                 .queryParam("apiKey", apiKey);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-
-        ResponseEntity<String> response = restTemplate.exchange(builder
-                .build()
-                .toUri(), HttpMethod.GET, entity, String.class);
-
-        if (response.getStatusCode() == HttpStatus.OK) {
-            String responseBody = response.getBody();
-            WeekResponse weekResponse = objectMapper.readValue(responseBody, WeekResponse.class);
-            return ResponseEntity.ok(weekResponse);
-        } else {
-            return ResponseEntity.status(response.getStatusCode()).body(null);
-        }
+        WeekResponse weekResponse = new WeekResponse();
+        weekResponse.setDiet(diet);
+        weekResponse.setNumCalories(numCalories);
+        weekResponse.setExclusions(exclusions);
+        return weekResponse;
     }
 
-    public ResponseEntity<DayResponse> getDailyMeals(@RequestParam String numCalories, @RequestParam String diet, @RequestParam String exclusions) {
+    public DayResponse getDailyMeals(String numCalories, String diet, String exclusions) {
         String apiUrl = spoonacularBaseUrl + spoonacularMealplanUrl;
         UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(apiUrl)
                 .queryParam("timeFrame", "day")
@@ -63,31 +49,11 @@ public class MealPlannerService {
                 .queryParam("exclude", exclusions)
                 .queryParam("apiKey", apiKey);
 
-        String uri = builder.toUriString();
-        try {
-            ResponseEntity<DayResponse> response = restTemplate.getForEntity(uri, DayResponse.class);
-            if (response.getStatusCode() == HttpStatus.OK) {
-                return ResponseEntity.ok(response.getBody());
-            } else {
-                return ResponseEntity.status(response.getStatusCode()).body(null);
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
+        DayResponse dayResponse = new DayResponse();
+        dayResponse.setDiet(diet);
+        dayResponse.setNumCalories(numCalories);
+        dayResponse.setExclusions(exclusions);
+        return dayResponse;
     }
-}        //        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//
-//        HttpEntity<String> entity = new HttpEntity<>(headers);
-
-//        ResponseEntity<String> response = restTemplate.exchange(builder.build().toUri(), HttpMethod.GET, entity, String.class);
-//
-//        if (response.getStatusCode() == HttpStatus.OK) {
-//            String responseBody = response.getBody();
-//            WeekResponse weekResponse = objectMapper.readValue(responseBody, WeekResponse.class);
-//            return ResponseEntity.ok(weekResponse);
-//        } else {
-//            return ResponseEntity.status(response.getStatusCode()).body(null);
-//        }
-
+}
 
