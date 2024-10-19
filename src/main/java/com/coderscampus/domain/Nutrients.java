@@ -1,60 +1,50 @@
 package com.coderscampus.domain;
 
 public class Nutrients {
-    private String nutrients;
-    private String calories;
-    private String protein;
-    private String fat;
-    private String carbohydrates;
+    private Double calories;
+    private Double protein;
+    private Double fat;
+    private Double carbohydrates;
 
     public Nutrients() {
     }
 
-    public Nutrients(String nutrients, String calories, String protein, String fat, String carbohydrates) {
-        this.nutrients = nutrients;
+    public Nutrients(double calories, double protein, double fat, double carbohydrates) {
         this.calories = calories;
         this.protein = protein;
         this.fat = fat;
         this.carbohydrates = carbohydrates;
     }
 
-    public String getNutrients() {
-        return nutrients;
-    }
-
-    public void setNutrients(String nutrients) {
-        this.nutrients = nutrients;
-    }
-
-    public String getCalories() {
+    public double getCalories() {
         return calories;
     }
 
-    public void setCalories(String calories) {
+    public void setCalories(double calories) {
         this.calories = calories;
     }
 
-    public String getProtein() {
+    public double getProtein() {
         return protein;
     }
 
-    public void setProtein(String protein) {
+    public void setProtein(double protein) {
         this.protein = protein;
     }
 
-    public String getFat() {
+    public double getFat() {
         return fat;
     }
 
-    public void setFat(String fat) {
+    public void setFat(double fat) {
         this.fat = fat;
     }
 
-    public String getCarbohydrates() {
+    public double getCarbohydrates() {
         return carbohydrates;
     }
 
-    public void setCarbohydrates(String carbohydrates) {
+    public void setCarbohydrates(double carbohydrates) {
         this.carbohydrates = carbohydrates;
     }
 }
