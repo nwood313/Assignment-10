@@ -67,4 +67,16 @@ public class Meals {
     public void setSourceUrl(String sourceUrl) {
         this.sourceUrl = sourceUrl;
     }
+
+    @Override
+    public String toString() {
+        return "Meals{" +
+                "id=" + id +
+                ", imageType='" + imageType + '\'' +
+                ", title='" + title + '\'' +
+                ", readyInMinutes=" + readyInMinutes +
+                ", servings=" + servings +
+                ", sourceUrl='" + sourceUrl + '\'' +
+                '}';
+    }
 }
