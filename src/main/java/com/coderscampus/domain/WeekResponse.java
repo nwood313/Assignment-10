@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class WeekResponse {
 
-    private Map<String,DayResponse> week;
+    private Map<String, DayResponse> week;
 
     public Map<String, DayResponse> getWeek() {
         return week;
