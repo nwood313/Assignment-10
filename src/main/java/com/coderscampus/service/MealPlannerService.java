@@ -48,7 +48,7 @@ public class MealPlannerService {
             builder.queryParam("diet", diet);
         }
         if (exclusions != null && !exclusions.isEmpty()) {
-            builder.queryParam("exclusion", numCalories);
+            builder.queryParam("exclusion", exclusions);
         }
 
         System.out.println("Find your meal plan at:" + builder.toUriString());

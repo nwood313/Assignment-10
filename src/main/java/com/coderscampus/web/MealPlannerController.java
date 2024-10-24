@@ -19,18 +19,20 @@ public class MealPlannerController {
     }
 
     @GetMapping("mealplanner/week")
-    public ResponseEntity<WeekResponse> getWeekMeals(@RequestParam (defaultValue = "2000") String numCalories,
-                                                     @RequestParam(defaultValue = "")  String diet,
-                                                     @RequestParam (defaultValue = "") String exclusions) {
+    public ResponseEntity<WeekResponse> getWeekMeals(@RequestParam (required = false) String numCalories,
+                                                     @RequestParam (required = false) String diet,
+                                                     @RequestParam (required = false) String exclusions) {
         WeekResponse weekResponse = mealPlannerService.getWeeklyMeals(numCalories, diet, exclusions);
         return ResponseEntity.ok(weekResponse);
     }
 
     @GetMapping("mealplanner/day")
-    public ResponseEntity<DayResponse> getDayMeals(@RequestParam (defaultValue = "2000") String numCalories,
-                                                   @RequestParam (defaultValue = "") String diet,
-                                                   @RequestParam (defaultValue = "") String exclusions) {
+    public ResponseEntity<DayResponse> getDayMeals(@RequestParam (required = false) String numCalories,
+                                                   @RequestParam (required = false) String diet,
+                                                   @RequestParam (required = false) String exclusions) {
         DayResponse dayResponse = mealPlannerService.getDailyMeals(numCalories, diet, exclusions);
         return ResponseEntity.ok(dayResponse);
     }
 }
+
+//(defaultValue = "")
