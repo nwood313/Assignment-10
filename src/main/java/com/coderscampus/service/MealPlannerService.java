@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.Optional;
+
 
 @Service
 public class MealPlannerService {
@@ -37,22 +39,17 @@ public class MealPlannerService {
 
     public String buildActualUrl(String timeframe, String numCalories, String diet, String exclusions) {
         String apiUrl = spoonacularBaseUrl + spoonacularMealplanUrl;
-        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(apiUrl)
+        String uriString = UriComponentsBuilder.fromUriString(apiUrl)
                 .queryParam("timeFrame", timeframe)
-                .queryParam("apiKey", apiKey);
+                .queryParam("apiKey", apiKey)
+                .queryParamIfPresent("targetCalories", Optional.ofNullable(numCalories))
+                .queryParamIfPresent("diet", Optional.ofNullable(diet))
+                .queryParamIfPresent("exclusion", Optional.ofNullable(exclusions))
+                .build()
+                .toUriString();
 
-        if (numCalories != null && !numCalories.isEmpty()) {
-            builder.queryParam("targetCalories", numCalories);
-        }
-        if (diet != null && !diet.isEmpty()) {
-            builder.queryParam("diet", diet);
-        }
-        if (exclusions != null && !exclusions.isEmpty()) {
-            builder.queryParam("exclusion", exclusions);
-        }
-
-        System.out.println("Find your meal plan at:" + builder.toUriString());
-        return builder.toUriString();
+        System.out.println("Find your meal plan at:" + uriString);
+        return uriString;
 
     }
 
